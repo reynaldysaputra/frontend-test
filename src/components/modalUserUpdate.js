@@ -5,21 +5,21 @@ import { useUser } from '../context/userContext';
 import Button from './button';
 import Input from './input';
 
-function ModalAddUser(){
-  const {modalIsOpen, closeModal} = useModal(false);
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastName] = useState('');
-  const [city, setCity] = useState('');
-  const [street, setStreet] = useState('');
-  const [number, setNumber] = useState('');
-  const [zipcode, setZipCode] = useState('');
-  const [lat, setLang] = useState('');
-  const [long, setLong] = useState('');
-  const [phone, setPhone] = useState('');
-  const { postDataUser } = useUser();
+function ModalUserUpdate(){
+  const {modalIsOpenUserUpdate, closeModalUserUpdate} = useModal(false);
+  const {detailUser: user, postDataUser} = useUser();
+  const [email, setEmail] = useState(user && user.email);
+  const [username, setUsername] = useState(user && user.username);
+  const [password, setPassword] = useState(user && user.password);
+  const [firstname, setFirstname] = useState(user && user.name.firstname);
+  const [lastname, setLastName] = useState(user && user.name.lastname);
+  const [city, setCity] = useState(user && user.address.city);
+  const [street, setStreet] = useState(user && user.address.street);
+  const [number, setNumber] = useState(user && user.address.number);
+  const [zipcode, setZipCode] = useState(user && user.address.zipcode);
+  const [lat, setLang] = useState(user && user.address.geolocation.lat);
+  const [long, setLong] = useState(user && user.address.geolocation.long);
+  const [phone, setPhone] = useState(user && user.phone);
 
   const handleInputUser = useCallback((e) => {
     const name = e.target.name;
@@ -41,27 +41,13 @@ function ModalAddUser(){
 
   const handleSubmitPost = (e) => {
     e.preventDefault();
-    postDataUser({
-      url: "https://fakestoreapi.com/users",
-      email, 
-      username, 
-      password, 
-      firstname, 
-      lastname, 
-      city, 
-      street, 
-      number, 
-      zipcode, 
-      lat, 
-      long, 
-      phone
-    })
+    // Tidak dilanjutkan karena api nya error
   }
 
   return(
     <Modal
-      isOpen={modalIsOpen}
-      onRequestClose={closeModal}
+      isOpen={modalIsOpenUserUpdate}
+      onRequestClose={closeModalUserUpdate}
       overlayClassName='fixed top-0 bottom-0 left-0 right-0 bg-black/40'
       contentLabel="Example Modal"
       style={{
@@ -168,4 +154,4 @@ function ModalAddUser(){
   )
 }
 
-export default ModalAddUser;
+export default ModalUserUpdate;

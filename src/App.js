@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import ModalAddUser from './components/modalUser';
+import ModalUserUpdate from './components/modalUserUpdate';
 import ProtectedRoute from './components/protectedRoute';
 import { useTokenUser } from './context/tokenUserContext';
 import UserDetail from './pages/detailUser';
@@ -35,6 +36,8 @@ function App() {
 
       {/* Modal for user */}
       <ModalAddUser/>
+      {/* Modal user for update */}
+      <ModalUserUpdate/>
     </div>
   );
 }
