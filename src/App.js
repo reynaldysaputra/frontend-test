@@ -1,23 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import ModalAddUser from './components/modalUser';
+import ProtectedRoute from './components/protectedRoute';
+import { useTokenUser } from './context/tokenUserContext';
+import UserDetail from './pages/detailUser';
+import LoginPage from './pages/login';
+import UserPage from './pages/user';
 
 function App() {
+  const {token, handleRemoveToken} = useTokenUser();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header className='bg-black text-xl lg:text-2xl text-white text-center py-5 font-bold'>
+        Test Coding Front End by: Reynaldy <br/>
+        {token && (
+          <button 
+            className='border-2 border-white px-3 py-1 mt-4 text-sm'
+            onClick={handleRemoveToken}
+          >Logout</button>
+        )}
       </header>
+
+      <div className='w-[90%] m-auto'>
+        <Routes>
+          <Route path='/' element={<LoginPage/>} /> 
+          <Route element={<ProtectedRoute/>}>
+            <Route path='/user' element={<UserPage/>} />
+            <Route path="/user/:userId" element={<UserDetail />} />
+          </Route>
+        </Routes>
+      </div>
+
+      {/* Modal for user */}
+      <ModalAddUser/>
     </div>
   );
 }
