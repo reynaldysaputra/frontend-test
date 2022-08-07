@@ -8,7 +8,7 @@ import { useModal } from '../context/modalContext';
 import { useUser } from '../context/userContext';
 
 function UserPage(){
-  const {openModal} = useModal(false);
+  const {openModal} = useModal();
   const [page, setPageNumber] = useState();
   const {user, getUser} = useUser();
 
